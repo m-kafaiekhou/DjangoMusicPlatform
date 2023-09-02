@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+
+<!-- This line starts the HTML document and sets the default language to English -->
+<html lang="en">
+  <head>
+    <!-- This line specifies the character encoding used in the document -->
+    <meta charset="UTF-8" />
+
+    <!-- This line specifies the compatibility mode for Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- This line sets the viewport properties for responsive web design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- This line sets the title of the webpage that appears in the browser tab -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- This line links the external CSS file to style the webpage -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- This line specifies the icon used in the browser tab -->
+    <link rel="icon" type="image/x-icon" href="{% static 'icon/icon.png' %}" />
+      {% block style %}
+      {% endblock %}
+  </head>
+
+  <body>
+    <!-- This code block defines the navigation bar of the webpage -->
+    <nav>
+      <ul>
+        <!-- This line defines the brand logo and text -->
+        <li class="brand"><img src="{% static 'icon/logo.png' %}" alt="Spotify" /> Spotify</li>
+      </ul>
+    </nav>
+    <!-- This code block defines the main content area of the webpage -->
+    {% block content %}
+    {% endblock %}
+    <!-- A script tag for including a JavaScript file -->
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- A script tag for including the fontawesome icon library -->
+    <script
+      src="https://kit.fontawesome.com/26504e4a1f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
