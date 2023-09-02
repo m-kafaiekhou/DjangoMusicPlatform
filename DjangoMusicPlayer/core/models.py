@@ -33,6 +33,7 @@ class Artist(models.Model):
 class Song(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Song name")
+    slug = models.SlugField(unique=True)
     description = models.TextField()
     thumbnail = models.ImageField(upload_to="thumbnails", blank=False)
     song = models.FileField(upload_to=song_path, max_length=500)
@@ -42,6 +43,10 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Song, self).save(*args, **kwargs)
 
 
 class Playlist(models.Model):

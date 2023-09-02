@@ -12,8 +12,8 @@ class CustomUser(AbstractUser):
         ('b', 'Base'),
         ('p', 'Premium'),
     )
-    status = models.CharField(choices=STATUS_CHOICES, max_length=1)
-    email = models.EmailField(verbose_name="email address", blank=False, null=False, unique=True)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=1, default='f')
+    email = models.EmailField(verbose_name="email address", unique=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
