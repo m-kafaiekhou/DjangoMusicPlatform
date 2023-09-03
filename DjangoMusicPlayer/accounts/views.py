@@ -2,7 +2,7 @@ from .forms import RegistrationForm, LoginForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views import generic, View
-from django.contrib.auth.views import auth_login, auth_logout
+from django.contrib.auth.views import auth_login, auth_logout, PasswordResetConfirmView
 from django.contrib import messages
 from django.contrib.auth import authenticate
 
@@ -49,3 +49,6 @@ class LogoutView(View):
         auth_logout(request)
         return redirect(self.success_url)
 
+
+class PasswordResetConfirmView(PasswordResetConfirmView):
+    success_url = reverse_lazy('accounts:login')
