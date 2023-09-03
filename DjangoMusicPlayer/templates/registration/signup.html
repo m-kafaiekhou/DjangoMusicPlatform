@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+    Sing up
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 75vh">
+        <div class="form-container">
+            <p class="title">Sing up</p>
+            <form class="form" method="post" action="">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="username">First name</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="input-group">
+                    <label for="username">Last name</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="input-group">
+                    <label for="username">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="input-group">
+                    <label for="password1">Password</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="input-group">
+                    <label for="password2">Repeat Password</label>
+                    {{ form.password2 }}
+                </div>
+                <button class="sign mt-4">Sign up</button>
+            </form>
+            <br>
+            <p class="signup">Already have an account?
+                <a rel="noopener noreferrer" href="{% url 'accounts:login' %}" class="">Login</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

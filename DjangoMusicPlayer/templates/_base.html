@@ -29,11 +29,23 @@
   <body>
     <!-- This code block defines the navigation bar of the webpage -->
     <nav>
-      <ul>
+      <ul class="d-flex justify-content-between">
         <!-- This line defines the brand logo and text -->
         <li class="brand"><img src="{% static 'icon/logo.png' %}" alt="Spotify" /> Spotify</li>
+          <li class="mx-3">
+              <form method="post" action="{% url 'accounts:logout' %}">
+                  {% csrf_token %}
+                  <a onclick="this.parentNode.submit();">
+                      Logout
+                  </a>
+              </form>
+          </li>
       </ul>
     </nav>
+
+    <!-- This code block shows the messages -->
+    {% include 'messages.html' %}
+
     <!-- This code block defines the main content area of the webpage -->
     {% block content %}
     {% endblock %}
