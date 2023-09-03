@@ -5,9 +5,10 @@ from django.views import generic, View
 from django.contrib.auth.views import auth_login, auth_logout, PasswordResetConfirmView
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 
-class RegistrationView(generic.CreateView):
+class RegistrationView(LoginRequiredMixin, generic.CreateView):
     form_class = RegistrationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
