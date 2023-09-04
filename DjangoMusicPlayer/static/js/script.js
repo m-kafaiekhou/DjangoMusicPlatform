@@ -1,6 +1,6 @@
 // Initialize the Variables
 let songIndex = 0;
-let audioElement = new Audio('songs/1.mp3');
+let audioElement = new Audio();
 let masterPlay = document.getElementById('masterPlay');
 let myProgressBar = document.getElementById('myProgressBar');
 let gif = document.getElementById('gif');
@@ -8,17 +8,49 @@ let masterSongName = document.getElementById('masterSongName');
 let songItems = Array.from(document.getElementsByClassName('songItem'));
 
 let songs = [
-    {songName: "On & On-Cartoon, Daniel Levi", filePath: "songs/1.mp3", coverPath: "covers/1.jpg"},
-    {songName: "Invincible-DEAF KEV", filePath: "songs/2.mp3", coverPath: "covers/2.jpg"},
-    {songName: "Mortals-Warriyo, Laura Brehm", filePath: "songs/3.mp3", coverPath: "covers/3.jpg"},
-    {songName: "Shine-Spektrem", filePath: "songs/4.mp3", coverPath: "covers/4.jpg"},
-    {songName: "Why We Lose-Cartoon, Coleman Trapp", filePath: "songs/5.mp3", coverPath: "covers/5.jpg"},
-    {songName: "Sky High-Elektronomia", filePath: "songs/6.mp3", coverPath: "covers/6.jpg"},
-    {songName: "Symbolism-Electro-Light", filePath: "songs/7.mp3", coverPath: "covers/7.jpg"},
-    {songName: "Heroes Tonight-Janji, Johnning", filePath: "songs/8.mp3", coverPath: "covers/8.jpg"},
-    {songName: "My Heart-Different Heaven, EH!DE", filePath: "songs/9.mp3", coverPath: "covers/9.jpg"},
-    {songName: "Feel Good-Syn Cole", filePath: "songs/10.mp3", coverPath: "covers/10.jpg"},
+
 ]
+
+function loadSongs(endpoint) {
+    $.ajax({
+        url: endpoint,
+        type: "GET",
+        data: {},
+        dataType: "json",
+        success: (jsonResponse) => {
+            audioElement.src = jsonResponse[0].song
+
+            jsonResponse.forEach(song => {
+                let name = song.title
+                song.artists.forEach(artist => {
+                    name += ", "
+                    name += artist.name
+                })
+                const kv = {songName: name, filePath: song.song, coverPath: song.thumbnail}
+
+                const tempAudio = new Audio(song.song)
+                console.log(" aaahhhhhhhhhh ")
+                $('.songItemContainer').innerHTML +=
+                    `<div class="songItem">
+                        <img alt="cover" />
+                        <span class="songName">${name}</span>
+                        <span class="songlistplay"
+                          ><span class="timestamp"
+                            >${tempAudio.duration}
+                            <i id="0" class="far songItemPlay fa-play-circle"></i> </span
+                        ></span>
+                      </div>`
+
+                songs.push(kv)
+            });
+
+
+        },
+        error: () => console.log("Failed to fetch chart data from " +  + "!")
+    });
+}
+
+loadSongs('/songs/')
 
 songItems.forEach((element, i)=>{ 
     element.getElementsByTagName("img")[0].src = songs[i].coverPath; 
