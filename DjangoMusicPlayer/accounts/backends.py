@@ -12,15 +12,13 @@ class EmailOrUsernameModelBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        # n.b. Django <2.1 does not pass the `request`
-
         user_model = get_user_model()
 
         if username is None:
             username = kwargs.get(user_model.USERNAME_FIELD)
 
-        users = user_model._default_manager.filter(
-            Q(**{user_model.USERNAME_FIELD: username}) | Q(email__iexact=username)
+        users = user_model.objects.filter(
+            Q(username__exact=username) | Q(email__iexact=username)
         )
 
         # Test whether any matched user has the provided password:
@@ -29,3 +27,5 @@ class EmailOrUsernameModelBackend(ModelBackend):
                 return user
         if not users:
             user_model().set_password(password)
+
+

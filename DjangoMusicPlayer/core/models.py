@@ -59,7 +59,7 @@ class Playlist(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     song = models.ForeignKey('Song', on_delete=models.CASCADE)
-    like_date = models.DateTimeField(auto_now_add=True)
+    like_date = models.DateTimeField(auto_now=True)
 
 
 class Comment(models.Model):
