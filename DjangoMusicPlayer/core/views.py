@@ -5,6 +5,7 @@ from django.views import generic, View
 
 from .serializers import SongSerializer
 from .models import Song, Like
+from .utils import APIAuthDecorator
 
 
 class IndexView(generic.TemplateView):
@@ -14,6 +15,7 @@ class IndexView(generic.TemplateView):
 class SongListView(APIView):
     serializer_class = SongSerializer
 
+    @APIAuthDecorator
     def get(self, request, *args, **kwargs):
         songs = Song.objects.all()
         if songs:
